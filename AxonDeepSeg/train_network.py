@@ -2,6 +2,9 @@
 
 from pathlib import Path
 
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 
 from AxonDeepSeg.network_construction import *
 from AxonDeepSeg.data_management.input_data import *
@@ -22,6 +25,8 @@ import tensorflow as tf
 from albumentations import *
 import random
 import cv2
+import json
+
 
 
 def train_model(
@@ -208,6 +213,41 @@ def train_model(
 
     model = uconv_net(config, bn_updated_decay=None, verbose=True)
 
+    print("Path of the model is ", path_model)
+    
+    ########################## Transfer Learning #########################
+
+    print("**************Loading the  TEM model*****************")
+    # Load model
+    custom_objects = {
+        "dice_axon": dice_axon,
+        "dice_myelin": dice_myelin,
+        "dice_coef_loss": dice_coef_loss,
+    }
+    
+
+    model = load_model(
+        str(path_model) + "/model.hdf5", custom_objects=custom_objects
+    )
+    print("************** TEM model loaded *****************")
+
+
+    print("**************Summary of the model is *****************")
+    print(model.summary())
+
+    print("************** Freezing the encoder layers *****************")
+    ################## Freezing the encoder layer ########################
+
+    layer_names=[layer.name for layer in model.layers]
+    print(layer_names)
+    for i in layer_names:
+        if i=="up_sampling2d_1":
+            break
+        model.get_layer(i).trainable = False
+
+    print("**************Summary of the model is *****************")
+    print(model.summary())
+    
     ########################### Tensorboard for Visualization ###########
     tensorboard = TensorBoard(log_dir=str(path_model))
 
@@ -225,10 +265,13 @@ def train_model(
         metrics=["accuracy", dice_axon, dice_myelin],
     )
 
+
     train_steps = len(train_ids) // batch_size
     valid_steps = len(valid_ids) // batch_size
 
     ########################## Use Checkpoints to save best Accuracy and Loss ###########
+
+    print("The checkpoint stored in config file is", checkpoint)
 
     # Save the checkpoint in the /models/path_model folder
     filepath_acc = str(path_model) + "/best_acc_model.ckpt"
@@ -256,12 +299,17 @@ def train_model(
         period=checkpoint_period,
     )
 
+
+
     ########################## Training ###########
     
     if checkpoint == "loss":
         model.load_weights(filepath_loss)
     elif checkpoint == "accuracy":
         model.load_weights(filepath_acc)
+
+
+
 
     model.fit_generator(
         train_generator,
@@ -271,6 +319,7 @@ def train_model(
         epochs=epochs,
         callbacks=[tensorboard, checkpoint_loss, checkpoint_acc],
     )
+
 
     ########################## Save the model after Training ###########
 
@@ -350,7 +399,7 @@ def dice_coef_loss(y_true, y_pred):
 
 def main():
     import argparse
-
+    
     ap = argparse.ArgumentParser()
     ap.add_argument("-p", "--path_training", required=True, help="")
     ap.add_argument("-m", "--path_model", required=True, help="")
@@ -370,8 +419,7 @@ def main():
     path_model_init = Path(args["path_model_init"])
     config_file = args["config_file"]
     gpu = args["GPU"]
-
-    config = generate_config(config_file)
+    config = generate_config(config)
 
     train_model(path_training, path_model, config, path_model_init, gpu=gpu)
 
