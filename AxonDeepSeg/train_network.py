@@ -56,6 +56,7 @@ def train_model(
     # If string, convert to Path objects
     path_trainingset = convert_path(path_trainingset)
     path_model = convert_path(path_model)
+    path_model_init = convert_path(path_model_init)
 
     ###################################################################################################################
     ############################################## VARIABLES INITIALIZATION ###########################################
@@ -213,7 +214,8 @@ def train_model(
 
     model = uconv_net(config, bn_updated_decay=None, verbose=True)
 
-    print("Path of the model is ", path_model)
+    print("Path of the init model is ", path_model_init)
+    print("Path where new model will be saved is ", path_model)
     
     ########################## Transfer Learning #########################
 
@@ -227,7 +229,7 @@ def train_model(
     
 
     model = load_model(
-        str(path_model) + "/model.hdf5", custom_objects=custom_objects
+        str(path_model_init) + "/model.hdf5", custom_objects=custom_objects
     )
     print("************** TEM model loaded *****************")
 
