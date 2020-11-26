@@ -246,8 +246,10 @@ def train_model(
         if i=="up_sampling2d_1":
             break
         model.get_layer(i).trainable = False
+    for layer in model.layers:
+        print("Layer " + layer.name, "is trainable: " + str(layer.trainable))
 
-    print("**************Summary of the model is *****************")
+    print("************** Summary of the model before compile is *****************")
     print(model.summary())
     
     ########################### Tensorboard for Visualization ###########
@@ -260,13 +262,15 @@ def train_model(
         lr=learning_rate, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0
     )
 
+    print("************** Compiling model *****************")
     # Compile the model with Categorical Cross Entropy loss and Adam Optimizer
     model.compile(
         optimizer=adam,
         loss=dice_coef_loss,
         metrics=["accuracy", dice_axon, dice_myelin],
     )
-
+    print("************** Summary of the model after compile is *****************")
+    print(model.summary())
 
     train_steps = len(train_ids) // batch_size
     valid_steps = len(valid_ids) // batch_size
