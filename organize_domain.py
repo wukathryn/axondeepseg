@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 
 if __name__ == "__main__":
-    directory_name = '/home/GRAMES.POLYMTL.CA/p112473/p112473/axondeepseg/SC P30_lastone'
+    directory_name = '~/duke/histology/McGill/EM 2020-2021/SC P30'
     subdirectory_list = os.listdir(directory_name)
 
     for subdirectory in subdirectory_list:
