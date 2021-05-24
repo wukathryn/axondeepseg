@@ -23,7 +23,7 @@ def filter_resolution(directory):
     print('The number of images after filtering were', len(os.listdir(directory)))
 
 if __name__ == "__main__":
-    directory_name = '/home/GRAMES.POLYMTL.CA/p112473/p112473/axondeepseg/SC P30_lastone'
+    directory_name = '~/duke/histology/McGill/EM 2020-2021'
     subdirectory_list = os.listdir(directory_name)
 
 
