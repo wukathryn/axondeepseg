@@ -133,7 +133,7 @@ Graphical User Interface (GUI) (optional)
 
 AxonDeepSeg can be run via a Graphical User Interface (GUI) instead of the Terminal command line. This GUI is a plugin for the software `FSLeyes <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes>`_. Beyond the convenience of running AxonDeepSeg with the click of a button, this GUI is also an excellent way to manually correct output segmentations (if need to).
 
-.. image:: _static/GUI_image.png
+.. image:: https://raw.githubusercontent.com/axondeepseg/doc-figures/main/introduction/GUI_image.png
 
 Launch FSLeyes ::
 
@@ -146,6 +146,19 @@ In FSLeyes, do the following:
 
 From now on, you can access the plugin on the FSLeyes interface by selecting ``Settings -> Ortho View -> ADScontrol``.
 
+In case, you find trouble installing FSLeyes plugin for ADS you could refer the video below.
+
+.. raw:: html
+
+   <div style="position: relative; padding-bottom: 5%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+     <iframe width="700" height="394" src="https://www.youtube.com/embed/qzWeG5vaVyo" frameborder="0" allowfullscreen></iframe>
+
+
+.. NOTE :: For some users, the ADScontrol tab will not appear after first installing the plugin.
+           To resolve this issue, please close FSLeyes and relaunch it (within your virtual environment).
+           This step may only be required when you first install the plugin.
+
+
 Known issues
 ~~~~~~~~~~~~
 1. The FSLeyes installation doesn't always work on Linux. Refer to the `FSLeyes installation guide <https://users.fmrib.ox.ac.uk/~paulmc/fsleyes/userdoc/latest/install.html>`_ if you need. In our testing, most issues came from the installation of the wxPython package.
@@ -155,12 +168,18 @@ GPU-compatible installation
 ---------------------------
 .. NOTE :: This feature is not available if you are using a macOS.
 
+Linux and Windows 10
+~~~~~~~~~~~~~~~~~~~~
+
 By default, AxonDeepSeg installs the CPU version of TensorFlow. To train a model using your GPU, you need to uninstall the TensorFlow from your virtual environment, and install the GPU version of it::
 
-    pip uninstall tensorflow
-    pip install tensorflow-gpu==1.13.1
+    conda uninstall tensorflow
+    conda install -c anaconda tensorflow-gpu==1.13.1
 
-.. WARNING :: Because we recommend the use of version 1.13.1 of Tensorflow GPU, the CUDA version on your system should be 10.0. CUDA version less than 10 is not compatible with Tensorflow 1.13.1. To see the CUDA version installed on your system, run ``nvcc --version`` in your Linux terminal.
+This might uninstall keras in the process, so we need to install it again ::
+
+    conda install -c conda-forge keras==2.2.4
+    
 
 Existing models
 ===============
@@ -190,7 +209,7 @@ To use AxonDeepSeg, you must first activate the virtual environment if it isn't 
 Example dataset
 ---------------
 
-You can demo the AxonDeepSeg by downloading the test data available `here <https://osf.io/rtbwc/download>`_. It contains two SEM test samples and one TEM test sample.
+You can demo the AxonDeepSeg by downloading the test data available `here <https://api.github.com/repos/axondeepseg/data-example/zipball>`_. It contains two SEM test samples and one TEM test sample.
 
 Segmentation
 ------------
@@ -299,6 +318,11 @@ The script to launch in called **axondeepseg_morphometrics**. It has several arg
 -s SIZEPIXEL        Pixel size of the image(s) to segment, in micrometers. 
                     If no pixel size is specified, a **pixel_size_in_micrometer.txt** file needs to be added to the image folder path (that file should contain a single float number corresponding to the resolution of the image, i.e. the pixel size). The pixel size in that file will be used for the morphometrics computation.
 
+-a AXONSHAPE       Axon shape
+                    **circle:** Axon shape is considered as circle. In this case, diameter is computed using equivalent diameter. 
+                    **ellipse:** Axon shape is considered as an ellipse. In this case, diameter is computed using ellipse minor axis.
+                    The default axon shape is set to **circle**.
+
 -f FILENAME         Name of the excel file in which the morphometrics will be stored.
                     The excel file extension can either be **.xlsx** or **.csv**.
                     If name of the excel file is not provided, the morphometrics will be saved as **axon_morphometrics.xlsx**.
@@ -307,35 +331,46 @@ Morphometrics of a single image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Before computing the morphometrics of an image, make sure it has been segmented using AxonDeepSeg ::
 
-    axondeepseg_morphometrics -i test_segmentation/test_sem_image/image1_sem/77.png -f axon_morphometrics 
+    axondeepseg_morphometrics -i test_segmentation/test_sem_image/image1_sem/77.png -a circle -f axon_morphometrics 
 
-This generates a **'axon_morphometrics.xlsx'** file in the image directory::
+This generates a **'77_axon_morphometrics.xlsx'** file in the image directory::
 
     --image1_sem/
     ---- 77.png
     ---- 77_seg-axon.png
     ---- 77_seg-axonmyelin.png
     ---- 77_seg-myelin.png
+    ---- 77_axon_morphometrics.xlsx
     ---- pixel_size_in_micrometer.txt
-    ---- axon_morphometrics.xlsx
+
     ...
 
+.. NOTE 1:: If name of the excel file is not provided using the `-f` flag of the CLI, the morphometrics will be saved as the original image name with suffix "axon_morphometrics.xlsx". However, if custom filename is provided, then the morphometrics will be saved as the original image name with suffix "custom filename".
+   ::
+.. NOTE 2:: By default, AxonDeepSeg treats axon shape as **circle** and the calculation of the diameter is based on the axon area of the mask. 
+           For each axons, the equivalent diameter is computed, which is the diameter of a circle with the same area as the axon. ::
+           
+           If you wish to treat axon shape as an ellipse, you can set the  **-a** argument to be **ellipse**.
+           When axon shape is set to ellipse, the calculation of the diameter is based on ellipse minor axis::
+            
+            axondeepseg -i test_segmentation/test_sem_image/image1_sem/77.png -a ellipse
 
-Morphometrics of images from multiple folders
+Morphometrics of a specific image from multiple folders
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-To generate morphometrics of images which are located in different folders, specify the path of the image folders using the **-i** argumument of the CLI separated by space. For instance, to compute morphometrics of the images present in the folders **'test_sem_image/image1_sem/'** and **'test_sem_image/image2_sem/'** of the test dataset, use the following command::
+To generate morphometrics of images which are located in different folders, specify the path of the image folders using the **-i** argument of the CLI separated by space. For instance, to compute morphometrics of the image **'77.png'** and **'image.png'** present in the folders **'test_sem_image/image1_sem/'** and **'test_sem_image/image2_sem/'** respectively of the test dataset, use the following command::
 
     axondeepseg_morphometrics -i test_segmentation/test_sem_image/image1_sem/77.png test_segmentation/test_sem_image/image2_sem/image.png
 
-This will generate **'axon_morphometrics.xlsx'** file in each of folders:: 
+This will generate **'77_axon_morphometrics.xlsx'** and **'image_axon_morphometrics.xlsx'** files in the **'image1_sem'** and **'image2_sem'** folders:: 
 
     --image1_sem/
     ---- 77.png
     ---- 77_seg-axon.png
     ---- 77_seg-axonmyelin.png
     ---- 77_seg-myelin.png
+    ---- 77_axon_morphometrics.xlsx
     ---- pixel_size_in_micrometer.txt
-    ---- axon_morphometrics.xlsx
+
     ...
 
     --image2_sem/
@@ -343,9 +378,120 @@ This will generate **'axon_morphometrics.xlsx'** file in each of folders::
     ---- image_seg-axon.png
     ---- image_seg-axonmyelin.png
     ---- image_seg-myelin.png
+    ---- image_axon_morphometrics.xlsx
     ---- pixel_size_in_micrometer.txt
-    ---- axon_morphometrics.xlsx
 
+Morphometrics of all the images present in folder(s)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+To compute the morphometrics of batches of images present in folder(s), input the path of the directories using the **-i** argument separated by space. For example, the morphometrics files of the images present in the directories  **'test_sem_image/image1_sem/'** and **'test_sem_image/image2_sem/'** are computed using the following CLI command::
+
+    axondeepseg_morphometrics -i test_segmentation/test_sem_image/image1_sem test_segmentation/test_sem_image/image2_sem
+ 
+This will generate **'77_axon_morphometrics.xlsx'** and **'78_axon_morphometrics.xlsx'** morphometrics files in the **'image1_sem'** directory. And, the **'image_axon_morphometrics.xlsx'** and **'image2_axon_morphometrics.xlsx'** morphometrics files are generated in the **'image2_sem'** directory:: 
+
+    --image1_sem/
+    ---- 77.png
+    ---- 77_seg-axon.png
+    ---- 77_seg-axonmyelin.png
+    ---- 77_seg-myelin.png
+    ---- 77_axon_morphometrics.xlsx
+
+    ---- 78.png
+    ---- 78_seg-axon.png
+    ---- 78_seg-axonmyelin.png
+    ---- 78_seg-myelin.png
+    ---- 78_axon_morphometrics.xlsx
+
+    ---- pixel_size_in_micrometer.txt
+
+    ...
+
+    --image2_sem/
+    ---- image.png
+    ---- image_seg-axon.png
+    ---- image_seg-axonmyelin.png
+    ---- image_seg-myelin.png
+    ---- image_axon_morphometrics.xlsx
+
+    ---- image2.png
+    ---- image2_seg-axon.png
+    ---- image2_seg-axonmyelin.png
+    ---- image2_seg-myelin.png
+    ---- image2_axon_morphometrics.xlsx
+    
+    ---- pixel_size_in_micrometer.txt 
+    
+Axon Shape: Circle vs Ellipse
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Circle 
+^^^^^^
+**Usage** ::
+
+    axondeepseg -i test_segmentation/test_sem_image/image1_sem/77.png -a circle
+
+**Studies using Circle as axon shape:**
+
+* Duval et al: https://pubmed.ncbi.nlm.nih.gov/30326296/
+* Salini et al: https://www.frontiersin.org/articles/10.3389/fnana.2017.00129/full
+
+Ellipse
+^^^^^^^
+**Usage** ::
+
+    axondeepseg -i test_segmentation/test_sem_image/image1_sem/77.png -a ellipse
+
+**Studies using Ellipse as axon shape:**
+
+* Payne et al: https://pubmed.ncbi.nlm.nih.gov/21381867/
+* Payne et al: https://pubmed.ncbi.nlm.nih.gov/22879411/
+* Fehily et al: https://pubmed.ncbi.nlm.nih.gov/30702755/
+
+
+.. NOTE :: In the literature, both equivalent diameter and ellipse minor axis are used to compute the morphometrics. 
+           Thus, depending on the usecase, the user is advised to choose axon shape accordingly.
+           
+
+
+Morphometrics file
+~~~~~~~~~~~~~~~~~~
+
+The resulting **'axon_morphometrics.csv/xlsx'** file will contain the following columns headings. Most of the metrics are computed using `skimage.measure.regionprops <https://scikit-image.org/docs/stable/api/skimage.measure.html#regionprops>`_. 
+
+By default for axon shape, that is, `circle`, the equivalent diameter is used. For `ellipse` axon shape, minor axis is used as the diameter. The equivalent diameter is defined as the diameter of a circle with the same area as the region. 
+
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Field
+     - Description
+   * - x0
+     - Axon X centroid position in pixels.
+   * - y0
+     - Axon Y centroid position in pixels.
+   * - gratio
+     - Ratio between the axon diameter and the axon+myelin (fiber) diameter (`gratio = axon_diameter / axonmyelin_diameter`).
+   * - axon_area
+     - Area of the axon region in :math:`{\mu}`\ m\ :sup:`2`\ .
+   * - axon_perimeter
+     - Perimeter of the axon object in :math:`{\mu}`\ m.
+   * - myelin_area
+     - Difference between axon+myelin (fiber) area and axon area in :math:`{\mu}`\ m\ :sup:`2`\ .
+   * - axon_diameter
+     - Diameter of the axon in :math:`{\mu}`\ m. 
+   * - myelin_thickness
+     - Half of the difference between the axon+myelin (fiber) diameter and the axon diameter in :math:`{\mu}`\ m.
+   * - axonmyelin_area
+     - Area of the axon+myelin (fiber) region in :math:`{\mu}`\ m\ :sup:`2`\ .
+   * - axonmyelin_perimeter
+     - Perimeter of the axon+myelin (fiber) object in :math:`{\mu}`\ m.
+   * - solidity
+     - Ratio of pixels in the axon region to pixels of the convex hull image.
+   * - eccentricity
+     - Eccentricity of the ellipse that has the same second-moments as the axon region.
+   * - orientation
+     - Angle between the 0th axis (rows) and the major axis of the ellipse that has the same second moments as the axon region.
 
 Jupyter notebooks
 -----------------
@@ -414,21 +560,21 @@ These options and detailed procedures are described in the section below "Manual
 
 Here are examples of an image, a good manual mask and a bad manual mask.
 
-.. figure:: _static/image_example.png
+.. figure:: https://raw.githubusercontent.com/axondeepseg/doc-figures/main/introduction/image_example.png
     :width: 750px
     :align: center
     :alt: Image example
 
     Image example
 
-.. figure:: _static/good_mask_example.png
+.. figure:: https://raw.githubusercontent.com/axondeepseg/doc-figures/main/introduction/good_mask_example.png
     :width: 750px
     :align: center
     :alt: Good manual mask example
 
     Good manual mask example
 
-.. figure:: _static/bad_mask_example.png
+.. figure:: https://raw.githubusercontent.com/axondeepseg/doc-figures/main/introduction/bad_mask_example.png
     :width: 750px
     :align: center
     :alt: Bad manual mask example
