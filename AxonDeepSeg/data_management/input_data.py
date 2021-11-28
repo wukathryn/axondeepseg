@@ -1,6 +1,7 @@
 import keras
 import numpy as np
 import AxonDeepSeg.ads_utils as ads
+import cv2
 
 from scipy import ndimage
 from skimage import exposure
