@@ -37,7 +37,7 @@ def describe(write_model):
                 if data.match('*config_network*'):
                     models = config_decode(models, item_path, 'describe')
 
-    models.reindex_axis(sorted(models.columns), axis=1)
+    #models.reindex_axis(sorted(models.columns), axis=1)
     models = models.fillna('None')
     if write_model:
         models.to_csv('models_description.csv', index=False)

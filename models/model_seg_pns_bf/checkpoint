@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/GRAMES.POLYMTL.CA/maboudb/axondeepseg/notebooks/../models/Simeon_20210121_training_gps_01_filtered_2021-01-24_20-56-24/model.ckpt"
+all_model_checkpoint_paths: "/home/GRAMES.POLYMTL.CA/maboudb/axondeepseg/notebooks/../models/Simeon_20210121_training_gps_01_filtered_2021-01-24_20-56-24/model.ckpt"

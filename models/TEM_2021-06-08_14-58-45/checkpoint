@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/users/kwu2/axondeepseg/notebooks/../models/TEM_2021-06-08_14-58-45/model.ckpt"
+all_model_checkpoint_paths: "/home/users/kwu2/axondeepseg/notebooks/../models/TEM_2021-06-08_14-58-45/model.ckpt"

@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/groups/bzuchero/axondeepseg/notebooks/../models/CNS_TEM_2021-11-04_10-07-52/model.ckpt"
+all_model_checkpoint_paths: "/home/groups/bzuchero/axondeepseg/notebooks/../models/CNS_TEM_2021-11-04_10-07-52/model.ckpt"
