@@ -1,0 +1,61 @@
+
+conda env create -v -v -v -f environment.yml -n ads_venv
+
+
+echo ". $GROUP_HOME/miniconda/etc/profile.d/conda.sh" >> ~/.bashrc
+
+source ~/.bashrc
+
+
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $GROUP_HOME/miniconda.sh
+bash $GROUP_HOME/miniconda.sh -b -p $GROUP_HOME/miniconda
+echo ". $GROUP_HOME/miniconda/etc/profile.d/conda.sh" >> ~/.bashrc
+source ~/.bashrc
+
+cd ~/.ssh
+vim config
+
+Host sherlock
+    Hostname sherlock.stanford.edu
+    User kwu2
+    ForwardX11 yes
+    ForwardX11Trusted yes
+    GSSAPIDelegateCredentials yes
+    GSSAPIAuthentication yes
+    ControlMaster auto
+    ControlPersist yes
+    ControlPath ~/.ssh/%l%r@%h:%p
+
+
+
+Module load mesa
+Module load py-engl
+
+module load system
+module load mesa/17.1.6
+module load py-pyopengl/3.1.5_py39
+
+#change KERAS_BACKEND from theranos to tensorflow
+echo “export KERAS_BACKEND="tensorflow” > /home/groups/bzuchero/miniconda/envs/ads_venv/etc/conda/activate.d/keras_activate.sh
+
+
+#reload ads_venv environment after changing Keras backend
+conda deactivate
+conda activate ads_venv
+
+srun -p gpu --gpus 1 -t 0-5 --pty bash
+
+jupyter notebook --no-browser --port=8888
+
+
+
+lsof -i :8888
+
+kill <PID>
+
+Cd $GROUP
+
+ssh -L 8888:localhost:8888 sherlock ssh -L 8888:localhost:8888 -N sh02-13n14 &
+
+ssh -L 31259:localhost:31259 sherlock ssh -L 31259:localhost:31259 -N sh02-13n14 &
+
