@@ -11,7 +11,7 @@ import sys
 import os
 import json
 
-def compute_training(path_model, path_trainingset, path_model_init = None, gpu_per = 1.0):
+def compute_training(path_model, path_trainingset, path_model_init = None):
 
     os.chdir(sys.path[0]) # Necessary to fix the directory we are working in
     path_configfile = os.path.join(path_model, 'config_network.json')
@@ -29,7 +29,7 @@ def compute_training(path_model, path_trainingset, path_model_init = None, gpu_p
 
     # Training
     from AxonDeepSeg.train_network import train_model
-    train_model(path_trainingset, path_model, config_network, gpu_per=gpu_per)
+    train_model(path_trainingset, path_model, config_network)
 
 def main():
     import argparse
@@ -38,15 +38,13 @@ def main():
     ap.add_argument("-t", "--path_trainingset",
                     default='/home/groups/bzuchero/axondeepseg/data/processed/cns/na_nyu_combined', help="")
     ap.add_argument("-i", "--path_model_init", required=False, default = None, help="")
-    ap.add_argument("-g", "--gpu_per", required=False, default = 1.0, help="")
 
     args = vars(ap.parse_args())
     path_model = str(args["path_model"])
     path_trainingset = str(args["path_trainingset"])
     path_model_init = str(args["path_model_init"])
-    gpu_per = float(args["gpu_per"])
 
-    compute_training(path_model, path_trainingset, path_model_init, gpu_per = gpu_per)
+    compute_training(path_model, path_trainingset, path_model_init)
 
 if __name__ == '__main__':
     main()

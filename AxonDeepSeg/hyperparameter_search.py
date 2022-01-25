@@ -4,12 +4,13 @@
 import os
 import json
 from pathlib import Path
+import subprocess
+import copy
 
-def make_model_directory():
-
+def make_model_directory(learning_rate):
     # Define path to where the trained model will be saved
     tissue = "CNS"
-    change_from_default_config = "testconfig"
+    change_from_default_config = "learning_rate_{}".format(learning_rate)
     dir_name = Path(tissue + "_" + change_from_default_config)
     path_model = "../models" / dir_name
 
@@ -21,7 +22,8 @@ def make_model_directory():
 
     return path_model
 
-def make_config_file(path_model):
+def default_config():
+    #populate config with default parameters
     config = {
         # General parameters:
         "n_classes": 3,
@@ -89,8 +91,26 @@ def make_config_file(path_model):
         "da-4-flipping-activate": True,
         "da-6-reflection_border-activate": False
     }
+    return config
+
+def hyperparameter_search(base_config):
+    # Perform hypersearch over one parameter
+    learning_rates = [1e-4, 1e-3, 1e-2]
+
+    for learning_rate in learning_rates:
+        # Modify the relevant parameter in params
+        config = copy.deepcopy(base_config)
+        config['learning_rate'] = learning_rate
+
+        # Make a directory containing this config file
+        path_model = make_model_directory(learning_rate)
+        save_config(path_model, config)
+
+        print("./sherlock_train.sh -m " + str(path_model.absolute()))
+        subprocess.call("./sherlock_train.sh -m " + str(path_model.absolute()), shell=True)
 
 
+def save_config(path_model, config):
     # Define file name of network configuration
     file_config = 'config_network.json'
 
@@ -100,9 +120,8 @@ def make_config_file(path_model):
         json.dump(config, f, indent=2)
 
 def main():
-    path_model = make_model_directory()
-    make_config_file(path_model)
-    return path_model
+    base_config = default_config()
+    hyperparameter_search(base_config)
 
 if __name__ == '__main__':
     main()

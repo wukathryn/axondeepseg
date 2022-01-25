@@ -17,6 +17,6 @@ echo $model_dir
 
 source ~/.bash_profile
 conda activate ads_venv
-python ../AxonDeepSeg/train_from_config.py -m $model_dir
+python ./train_from_config.py -m $model_dir
 
 

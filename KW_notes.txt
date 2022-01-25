@@ -59,3 +59,8 @@ ssh -L 8888:localhost:8888 sherlock ssh -L 8888:localhost:8888 -N sh02-13n14 &
 
 ssh -L 31259:localhost:31259 sherlock ssh -L 31259:localhost:31259 -N sh02-13n14 &
 
+Tensorboard
+-allows you to visualize training statistics
+-for some reason, it's working in the Firefox but not Safari browser for me
+tensorboard --logdir [directory with models] --port 6006 --host 0.0.0.0
+
