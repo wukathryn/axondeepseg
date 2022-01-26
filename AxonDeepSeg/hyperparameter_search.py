@@ -9,7 +9,7 @@ import copy
 import argparse
 
 #Location of the sbatch script. Modify if this script is moved or renamed
-sbatch_script_path = "./sherlock/sherlock_train.sh"
+sbatch_script_path = "../sherlock/sherlock_train.sh"
 
 def setup_model_directory(config, change_from_base_config, trainingset):
     # Define path to where the trained model will be saved
