@@ -107,7 +107,7 @@ def hyperparameter_search(base_config):
         save_config(path_model, config)
 
         print("./sherlock_train.sh -m " + str(path_model.absolute()))
-        subprocess.call("./sherlock_train.sh -m " + str(path_model.absolute()), shell=True)
+        subprocess.call("sbatch ./sherlock_train.sh -m " + str(path_model.absolute()), shell=True)
 
 
 def save_config(path_model, config):

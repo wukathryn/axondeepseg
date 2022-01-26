@@ -1,0 +1,221 @@
+This script is running on:
+sh03-12n16.int
+/home/groups/bzuchero/axondeepseg/AxonDeepSeg/../models/CNS_learning_rate_0.001
+Using TensorFlow backend.
+/home/groups/bzuchero/miniconda/envs/ads_venv/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/groups/bzuchero/miniconda/envs/ads_venv/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/groups/bzuchero/miniconda/envs/ads_venv/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:528: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/groups/bzuchero/miniconda/envs/ads_venv/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:529: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/groups/bzuchero/miniconda/envs/ads_venv/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:530: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/groups/bzuchero/miniconda/envs/ads_venv/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:535: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+WARNING:tensorflow:From /home/groups/bzuchero/miniconda/envs/ads_venv/lib/python3.7/site-packages/tensorflow/python/framework/op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2022-01-24 23:41:23.111249: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2022-01-24 23:41:23.115381: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2499960000 Hz
+2022-01-24 23:41:23.115454: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x5651a2784b80 executing computations on platform Host. Devices:
+2022-01-24 23:41:23.115463: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2022-01-24 23:41:23.369941: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x5651a2798eb0 executing computations on platform CUDA. Devices:
+2022-01-24 23:41:23.369975: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): NVIDIA GeForce RTX 2080 Ti, Compute Capability 7.5
+2022-01-24 23:41:23.370135: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: NVIDIA GeForce RTX 2080 Ti major: 7 minor: 5 memoryClockRate(GHz): 1.62
+pciBusID: 0000:c4:00.0
+totalMemory: 10.76GiB freeMemory: 10.61GiB
+2022-01-24 23:41:23.370152: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2022-01-24 23:41:23.371593: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2022-01-24 23:41:23.371606: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2022-01-24 23:41:23.371613: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2022-01-24 23:41:23.371688: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10321 MB memory) -> physical GPU (device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c4:00.0, compute capability: 7.5)
+WARNING:tensorflow:From /home/groups/bzuchero/miniconda/envs/ads_venv/lib/python3.7/site-packages/keras/backend/tensorflow_backend.py:3445: calling dropout (from tensorflow.python.ops.nn_ops) with keep_prob is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep_prob`.
+WARNING:tensorflow:From /home/groups/bzuchero/miniconda/envs/ads_venv/lib/python3.7/site-packages/tensorflow/python/ops/math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+WARNING:tensorflow:From /home/groups/bzuchero/miniconda/envs/ads_venv/lib/python3.7/site-packages/tensorflow/python/ops/math_grad.py:102: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide.
+Epoch 1/1000
+
+ 1/73 [..............................] - ETA: 12:55 - loss: 0.7036 - acc: 0.2837 - dice_axon: 0.1714 - dice_myelin: 0.1231
+ 2/73 [..............................] - ETA: 6:35 - loss: 0.6655 - acc: 0.4060 - dice_axon: 0.1383 - dice_myelin: 0.1359 
+ 3/73 [>.............................] - ETA: 4:27 - loss: 0.6668 - acc: 0.3918 - dice_axon: 0.1879 - dice_myelin: 0.1796
+ 4/73 [>.............................] - ETA: 3:23 - loss: 0.6595 - acc: 0.4122 - dice_axon: 0.1967 - dice_myelin: 0.1829
+ 5/73 [=>............................] - ETA: 2:45 - loss: 0.6527 - acc: 0.4208 - dice_axon: 0.2182 - dice_myelin: 0.2241
+ 6/73 [=>............................] - ETA: 2:19 - loss: 0.6420 - acc: 0.4167 - dice_axon: 0.2364 - dice_myelin: 0.2819
+ 7/73 [=>............................] - ETA: 2:00 - loss: 0.6358 - acc: 0.4158 - dice_axon: 0.2479 - dice_myelin: 0.3158
+ 8/73 [==>...........................] - ETA: 1:47 - loss: 0.6271 - acc: 0.4281 - dice_axon: 0.2519 - dice_myelin: 0.3335
+ 9/73 [==>...........................] - ETA: 1:36 - loss: 0.6198 - acc: 0.4341 - dice_axon: 0.2549 - dice_myelin: 0.3527
+10/73 [===>..........................] - ETA: 1:27 - loss: 0.6121 - acc: 0.4410 - dice_axon: 0.2558 - dice_myelin: 0.3722
+11/73 [===>..........................] - ETA: 1:19 - loss: 0.6058 - acc: 0.4445 - dice_axon: 0.2578 - dice_myelin: 0.3934
+12/73 [===>..........................] - ETA: 1:13 - loss: 0.6027 - acc: 0.4451 - dice_axon: 0.2575 - dice_myelin: 0.3996
+13/73 [====>.........................] - ETA: 1:08 - loss: 0.5994 - acc: 0.4521 - dice_axon: 0.2510 - dice_myelin: 0.4003
+14/73 [====>.........................] - ETA: 1:03 - loss: 0.5935 - acc: 0.4570 - dice_axon: 0.2531 - dice_myelin: 0.4160
+15/73 [=====>........................] - ETA: 1:00 - loss: 0.5882 - acc: 0.4631 - dice_axon: 0.2530 - dice_myelin: 0.4269
+16/73 [=====>........................] - ETA: 56s - loss: 0.5842 - acc: 0.4738 - dice_axon: 0.2483 - dice_myelin: 0.4253 
+17/73 [=====>........................] - ETA: 53s - loss: 0.5815 - acc: 0.4749 - dice_axon: 0.2508 - dice_myelin: 0.4303
+18/73 [======>.......................] - ETA: 50s - loss: 0.5773 - acc: 0.4830 - dice_axon: 0.2503 - dice_myelin: 0.4305
+19/73 [======>.......................] - ETA: 47s - loss: 0.5747 - acc: 0.4936 - dice_axon: 0.2427 - dice_myelin: 0.4220
+20/73 [=======>......................] - ETA: 45s - loss: 0.5721 - acc: 0.5030 - dice_axon: 0.2362 - dice_myelin: 0.4119
+21/73 [=======>......................] - ETA: 43s - loss: 0.5695 - acc: 0.5055 - dice_axon: 0.2387 - dice_myelin: 0.4191
+22/73 [========>.....................] - ETA: 41s - loss: 0.5673 - acc: 0.5137 - dice_axon: 0.2313 - dice_myelin: 0.4098
+23/73 [========>.....................] - ETA: 39s - loss: 0.5640 - acc: 0.5169 - dice_axon: 0.2331 - dice_myelin: 0.4188
+24/73 [========>.....................] - ETA: 37s - loss: 0.5622 - acc: 0.5174 - dice_axon: 0.2349 - dice_myelin: 0.4224
+25/73 [=========>....................] - ETA: 36s - loss: 0.5593 - acc: 0.5190 - dice_axon: 0.2366 - dice_myelin: 0.4298
+26/73 [=========>....................] - ETA: 34s - loss: 0.5558 - acc: 0.5219 - dice_axon: 0.2368 - dice_myelin: 0.4392
+27/73 [==========>...................] - ETA: 33s - loss: 0.5535 - acc: 0.5229 - dice_axon: 0.2380 - dice_myelin: 0.4427
+28/73 [==========>...................] - ETA: 31s - loss: 0.5513 - acc: 0.5229 - dice_axon: 0.2395 - dice_myelin: 0.4486
+29/73 [==========>...................] - ETA: 30s - loss: 0.5503 - acc: 0.5213 - dice_axon: 0.2404 - dice_myelin: 0.4551
+30/73 [===========>..................] - ETA: 29s - loss: 0.5475 - acc: 0.5242 - dice_axon: 0.2399 - dice_myelin: 0.4587
+31/73 [===========>..................] - ETA: 28s - loss: 0.5461 - acc: 0.5248 - dice_axon: 0.2399 - dice_myelin: 0.4631
+32/73 [============>.................] - ETA: 27s - loss: 0.5439 - acc: 0.5265 - dice_axon: 0.2398 - dice_myelin: 0.4673
+33/73 [============>.................] - ETA: 26s - loss: 0.5423 - acc: 0.5268 - dice_axon: 0.2402 - dice_myelin: 0.4708
+34/73 [============>.................] - ETA: 25s - loss: 0.5412 - acc: 0.5264 - dice_axon: 0.2413 - dice_myelin: 0.4742
+35/73 [=============>................] - ETA: 24s - loss: 0.5383 - acc: 0.5298 - dice_axon: 0.2432 - dice_myelin: 0.4741
+36/73 [=============>................] - ETA: 23s - loss: 0.5356 - acc: 0.5314 - dice_axon: 0.2475 - dice_myelin: 0.4779
+37/73 [==============>...............] - ETA: 22s - loss: 0.5344 - acc: 0.5315 - dice_axon: 0.2501 - dice_myelin: 0.4809
+38/73 [==============>...............] - ETA: 21s - loss: 0.5322 - acc: 0.5330 - dice_axon: 0.2499 - dice_myelin: 0.4782
+39/73 [===============>..............] - ETA: 21s - loss: 0.5297 - acc: 0.5350 - dice_axon: 0.2534 - dice_myelin: 0.4827
+40/73 [===============>..............] - ETA: 20s - loss: 0.5269 - acc: 0.5372 - dice_axon: 0.2567 - dice_myelin: 0.4837
+41/73 [===============>..............] - ETA: 19s - loss: 0.5260 - acc: 0.5380 - dice_axon: 0.2570 - dice_myelin: 0.4809
+42/73 [================>.............] - ETA: 18s - loss: 0.5235 - acc: 0.5398 - dice_axon: 0.2606 - dice_myelin: 0.4836
+43/73 [================>.............] - ETA: 18s - loss: 0.5212 - acc: 0.5416 - dice_axon: 0.2638 - dice_myelin: 0.4870
+44/73 [=================>............] - ETA: 17s - loss: 0.5202 - acc: 0.5420 - dice_axon: 0.2667 - dice_myelin: 0.4868
+45/73 [=================>............] - ETA: 16s - loss: 0.5208 - acc: 0.5400 - dice_axon: 0.2703 - dice_myelin: 0.4883
+46/73 [=================>............] - ETA: 16s - loss: 0.5191 - acc: 0.5406 - dice_axon: 0.2731 - dice_myelin: 0.4865
+47/73 [==================>...........] - ETA: 15s - loss: 0.5176 - acc: 0.5414 - dice_axon: 0.2785 - dice_myelin: 0.4866
+48/73 [==================>...........] - ETA: 15s - loss: 0.5163 - acc: 0.5414 - dice_axon: 0.2790 - dice_myelin: 0.4837
+49/73 [===================>..........] - ETA: 15s - loss: 0.5130 - acc: 0.5445 - dice_axon: 0.2842 - dice_myelin: 0.4861
+50/73 [===================>..........] - ETA: 14s - loss: 0.5110 - acc: 0.5459 - dice_axon: 0.2882 - dice_myelin: 0.4886
+51/73 [===================>..........] - ETA: 13s - loss: 0.5088 - acc: 0.5476 - dice_axon: 0.2923 - dice_myelin: 0.4905
+52/73 [====================>.........] - ETA: 12s - loss: 0.5073 - acc: 0.5489 - dice_axon: 0.2927 - dice_myelin: 0.4887
+53/73 [====================>.........] - ETA: 12s - loss: 0.5052 - acc: 0.5503 - dice_axon: 0.2963 - dice_myelin: 0.4903
+54/73 [=====================>........] - ETA: 11s - loss: 0.5027 - acc: 0.5525 - dice_axon: 0.3015 - dice_myelin: 0.4933
+55/73 [=====================>........] - ETA: 10s - loss: 0.5019 - acc: 0.5523 - dice_axon: 0.3057 - dice_myelin: 0.4976
+56/73 [======================>.......] - ETA: 10s - loss: 0.5006 - acc: 0.5531 - dice_axon: 0.3088 - dice_myelin: 0.4990
+57/73 [======================>.......] - ETA: 9s - loss: 0.4991 - acc: 0.5538 - dice_axon: 0.3113 - dice_myelin: 0.5014 
+58/73 [======================>.......] - ETA: 8s - loss: 0.4995 - acc: 0.5524 - dice_axon: 0.3137 - dice_myelin: 0.4986
+59/73 [=======================>......] - ETA: 8s - loss: 0.4981 - acc: 0.5531 - dice_axon: 0.3166 - dice_myelin: 0.5000
+60/73 [=======================>......] - ETA: 7s - loss: 0.4956 - acc: 0.5551 - dice_axon: 0.3212 - dice_myelin: 0.5026
+61/73 [========================>.....] - ETA: 6s - loss: 0.4947 - acc: 0.5553 - dice_axon: 0.3251 - dice_myelin: 0.5045
+62/73 [========================>.....] - ETA: 6s - loss: 0.4926 - acc: 0.5572 - dice_axon: 0.3289 - dice_myelin: 0.5083
+63/73 [========================>.....] - ETA: 5s - loss: 0.4919 - acc: 0.5574 - dice_axon: 0.3307 - dice_myelin: 0.5090
+64/73 [=========================>....] - ETA: 5s - loss: 0.4903 - acc: 0.5584 - dice_axon: 0.3340 - dice_myelin: 0.5099
+65/73 [=========================>....] - ETA: 4s - loss: 0.4884 - acc: 0.5601 - dice_axon: 0.3374 - dice_myelin: 0.5104
+66/73 [==========================>...] - ETA: 3s - loss: 0.4870 - acc: 0.5611 - dice_axon: 0.3395 - dice_myelin: 0.5103
+67/73 [==========================>...] - ETA: 3s - loss: 0.4868 - acc: 0.5607 - dice_axon: 0.3402 - dice_myelin: 0.5102
+68/73 [==========================>...] - ETA: 2s - loss: 0.4848 - acc: 0.5623 - dice_axon: 0.3434 - dice_myelin: 0.5125
+69/73 [===========================>..] - ETA: 2s - loss: 0.4830 - acc: 0.5638 - dice_axon: 0.3464 - dice_myelin: 0.5155
+70/73 [===========================>..] - ETA: 1s - loss: 0.4817 - acc: 0.5644 - dice_axon: 0.3482 - dice_myelin: 0.5159
+71/73 [============================>.] - ETA: 1s - loss: 0.4815 - acc: 0.5641 - dice_axon: 0.3476 - dice_myelin: 0.5127
+72/73 [============================>.] - ETA: 0s - loss: 0.4800 - acc: 0.5652 - dice_axon: 0.3510 - dice_myelin: 0.5148
+73/73 [==============================] - 41s 568ms/step - loss: 0.4801 - acc: 0.5645 - dice_axon: 0.3528 - dice_myelin: 0.5133 - val_loss: 0.3355 - val_acc: 0.6950 - val_dice_axon: 0.6018 - val_dice_myelin: 0.7091
+Epoch 2/1000
+
+ 1/73 [..............................] - ETA: 25s - loss: 0.3584 - acc: 0.6748 - dice_axon: 0.5143 - dice_myelin: 0.5999
+ 2/73 [..............................] - ETA: 38s - loss: 0.3570 - acc: 0.6675 - dice_axon: 0.5424 - dice_myelin: 0.5555
+ 3/73 [>.............................] - ETA: 45s - loss: 0.3652 - acc: 0.6486 - dice_axon: 0.5588 - dice_myelin: 0.5731
+ 4/73 [>.............................] - ETA: 40s - loss: 0.3724 - acc: 0.6325 - dice_axon: 0.5642 - dice_myelin: 0.5452
+ 5/73 [=>............................] - ETA: 37s - loss: 0.3746 - acc: 0.6327 - dice_axon: 0.5509 - dice_myelin: 0.5215
+ 6/73 [=>............................] - ETA: 35s - loss: 0.3722 - acc: 0.6336 - dice_axon: 0.5489 - dice_myelin: 0.5335
+ 7/73 [=>............................] - ETA: 35s - loss: 0.3791 - acc: 0.6277 - dice_axon: 0.5361 - dice_myelin: 0.5401
+ 8/73 [==>...........................] - ETA: 34s - loss: 0.3733 - acc: 0.6374 - dice_axon: 0.5418 - dice_myelin: 0.5546
+ 9/73 [==>...........................] - ETA: 33s - loss: 0.3811 - acc: 0.6295 - dice_axon: 0.5098 - dice_myelin: 0.5248
+10/73 [===>..........................] - ETA: 32s - loss: 0.3947 - acc: 0.6173 - dice_axon: 0.4732 - dice_myelin: 0.4950
+11/73 [===>..........................] - ETA: 31s - loss: 0.3880 - acc: 0.6236 - dice_axon: 0.4841 - dice_myelin: 0.5104
+12/73 [===>..........................] - ETA: 30s - loss: 0.3862 - acc: 0.6258 - dice_axon: 0.4898 - dice_myelin: 0.5229
+13/73 [====>.........................] - ETA: 30s - loss: 0.3813 - acc: 0.6310 - dice_axon: 0.4979 - dice_myelin: 0.5338
+14/73 [====>.........................] - ETA: 29s - loss: 0.3767 - acc: 0.6371 - dice_axon: 0.5061 - dice_myelin: 0.5477
+15/73 [=====>........................] - ETA: 28s - loss: 0.3734 - acc: 0.6398 - dice_axon: 0.5151 - dice_myelin: 0.5476
+16/73 [=====>........................] - ETA: 28s - loss: 0.3711 - acc: 0.6428 - dice_axon: 0.5180 - dice_myelin: 0.5481
+17/73 [=====>........................] - ETA: 27s - loss: 0.3716 - acc: 0.6408 - dice_axon: 0.5189 - dice_myelin: 0.5440
+18/73 [======>.......................] - ETA: 27s - loss: 0.3676 - acc: 0.6443 - dice_axon: 0.5258 - dice_myelin: 0.5477
+19/73 [======>.......................] - ETA: 26s - loss: 0.3692 - acc: 0.6421 - dice_axon: 0.5280 - dice_myelin: 0.5504
+20/73 [=======>......................] - ETA: 25s - loss: 0.3703 - acc: 0.6422 - dice_axon: 0.5189 - dice_myelin: 0.5443
+21/73 [=======>......................] - ETA: 25s - loss: 0.3719 - acc: 0.6402 - dice_axon: 0.5170 - dice_myelin: 0.5417
+22/73 [========>.....................] - ETA: 24s - loss: 0.3706 - acc: 0.6410 - dice_axon: 0.5157 - dice_myelin: 0.5313
+23/73 [========>.....................] - ETA: 24s - loss: 0.3680 - acc: 0.6442 - dice_axon: 0.5201 - dice_myelin: 0.5387
+24/73 [========>.....................] - ETA: 23s - loss: 0.3656 - acc: 0.6466 - dice_axon: 0.5237 - dice_myelin: 0.5429
+25/73 [=========>....................] - ETA: 23s - loss: 0.3753 - acc: 0.6351 - dice_axon: 0.5147 - dice_myelin: 0.5429
+26/73 [=========>....................] - ETA: 22s - loss: 0.3734 - acc: 0.6365 - dice_axon: 0.5185 - dice_myelin: 0.5436
+27/73 [==========>...................] - ETA: 22s - loss: 0.3697 - acc: 0.6400 - dice_axon: 0.5250 - dice_myelin: 0.5464
+28/73 [==========>...................] - ETA: 21s - loss: 0.3725 - acc: 0.6374 - dice_axon: 0.5248 - dice_myelin: 0.5542
+29/73 [==========>...................] - ETA: 21s - loss: 0.3708 - acc: 0.6390 - dice_axon: 0.5263 - dice_myelin: 0.5540
+30/73 [===========>..................] - ETA: 20s - loss: 0.3719 - acc: 0.6375 - dice_axon: 0.5198 - dice_myelin: 0.5449
+31/73 [===========>..................] - ETA: 20s - loss: 0.3707 - acc: 0.6391 - dice_axon: 0.5216 - dice_myelin: 0.5440
+32/73 [============>.................] - ETA: 19s - loss: 0.3677 - acc: 0.6428 - dice_axon: 0.5264 - dice_myelin: 0.5483
+33/73 [============>.................] - ETA: 19s - loss: 0.3639 - acc: 0.6472 - dice_axon: 0.5318 - dice_myelin: 0.5484
+34/73 [============>.................] - ETA: 18s - loss: 0.3603 - acc: 0.6508 - dice_axon: 0.5366 - dice_myelin: 0.5509
+35/73 [=============>................] - ETA: 18s - loss: 0.3597 - acc: 0.6514 - dice_axon: 0.5379 - dice_myelin: 0.5507
+36/73 [=============>................] - ETA: 17s - loss: 0.3590 - acc: 0.6523 - dice_axon: 0.5378 - dice_myelin: 0.5491
+37/73 [==============>...............] - ETA: 17s - loss: 0.3578 - acc: 0.6541 - dice_axon: 0.5364 - dice_myelin: 0.5460
+38/73 [==============>...............] - ETA: 16s - loss: 0.3591 - acc: 0.6520 - dice_axon: 0.5364 - dice_myelin: 0.5429
+39/73 [===============>..............] - ETA: 16s - loss: 0.3575 - acc: 0.6536 - dice_axon: 0.5391 - dice_myelin: 0.5478
+40/73 [===============>..............] - ETA: 15s - loss: 0.3571 - acc: 0.6548 - dice_axon: 0.5394 - dice_myelin: 0.5523
+41/73 [===============>..............] - ETA: 15s - loss: 0.3549 - acc: 0.6570 - dice_axon: 0.5433 - dice_myelin: 0.5554
+42/73 [================>.............] - ETA: 14s - loss: 0.3534 - acc: 0.6581 - dice_axon: 0.5467 - dice_myelin: 0.5564
+43/73 [================>.............] - ETA: 14s - loss: 0.3533 - acc: 0.6574 - dice_axon: 0.5439 - dice_myelin: 0.5513
+44/73 [=================>............] - ETA: 13s - loss: 0.3527 - acc: 0.6580 - dice_axon: 0.5463 - dice_myelin: 0.5494
+45/73 [=================>............] - ETA: 13s - loss: 0.3521 - acc: 0.6584 - dice_axon: 0.5486 - dice_myelin: 0.5490
+46/73 [=================>............] - ETA: 12s - loss: 0.3517 - acc: 0.6587 - dice_axon: 0.5515 - dice_myelin: 0.5481
+47/73 [==================>...........] - ETA: 12s - loss: 0.3494 - acc: 0.6610 - dice_axon: 0.5540 - dice_myelin: 0.5499
+48/73 [==================>...........] - ETA: 11s - loss: 0.3480 - acc: 0.6623 - dice_axon: 0.5572 - dice_myelin: 0.5507
+49/73 [===================>..........] - ETA: 11s - loss: 0.3466 - acc: 0.6636 - dice_axon: 0.5598 - dice_myelin: 0.5517
+50/73 [===================>..........] - ETA: 10s - loss: 0.3441 - acc: 0.6665 - dice_axon: 0.5633 - dice_myelin: 0.5548
+51/73 [===================>..........] - ETA: 10s - loss: 0.3418 - acc: 0.6688 - dice_axon: 0.5669 - dice_myelin: 0.5569
+52/73 [====================>.........] - ETA: 9s - loss: 0.3401 - acc: 0.6702 - dice_axon: 0.5701 - dice_myelin: 0.5584 
+53/73 [====================>.........] - ETA: 9s - loss: 0.3392 - acc: 0.6709 - dice_axon: 0.5714 - dice_myelin: 0.5553
+54/73 [=====================>........] - ETA: 9s - loss: 0.3373 - acc: 0.6732 - dice_axon: 0.5740 - dice_myelin: 0.5590
+55/73 [=====================>........] - ETA: 8s - loss: 0.3369 - acc: 0.6734 - dice_axon: 0.5756 - dice_myelin: 0.5585
+56/73 [======================>.......] - ETA: 8s - loss: 0.3380 - acc: 0.6719 - dice_axon: 0.5703 - dice_myelin: 0.5538
+57/73 [======================>.......] - ETA: 7s - loss: 0.3362 - acc: 0.6737 - dice_axon: 0.5734 - dice_myelin: 0.5558
+58/73 [======================>.......] - ETA: 7s - loss: 0.3376 - acc: 0.6722 - dice_axon: 0.5689 - dice_myelin: 0.5521
+59/73 [=======================>......] - ETA: 6s - loss: 0.3375 - acc: 0.6720 - dice_axon: 0.5690 - dice_myelin: 0.5532
+60/73 [=======================>......] - ETA: 6s - loss: 0.3386 - acc: 0.6705 - dice_axon: 0.5701 - dice_myelin: 0.5535
+61/73 [========================>.....] - ETA: 5s - loss: 0.3386 - acc: 0.6699 - dice_axon: 0.5723 - dice_myelin: 0.5530
+62/73 [========================>.....] - ETA: 5s - loss: 0.3375 - acc: 0.6709 - dice_axon: 0.5749 - dice_myelin: 0.5539
+63/73 [========================>.....] - ETA: 4s - loss: 0.3380 - acc: 0.6697 - dice_axon: 0.5751 - dice_myelin: 0.5533
+64/73 [=========================>....] - ETA: 4s - loss: 0.3380 - acc: 0.6696 - dice_axon: 0.5769 - dice_myelin: 0.5551
+65/73 [=========================>....] - ETA: 3s - loss: 0.3371 - acc: 0.6701 - dice_axon: 0.5796 - dice_myelin: 0.5557
+66/73 [==========================>...] - ETA: 3s - loss: 0.3362 - acc: 0.6712 - dice_axon: 0.5815 - dice_myelin: 0.5580
+67/73 [==========================>...] - ETA: 2s - loss: 0.3355 - acc: 0.6725 - dice_axon: 0.5837 - dice_myelin: 0.5609
+68/73 [==========================>...] - ETA: 2s - loss: 0.3343 - acc: 0.6741 - dice_axon: 0.5860 - dice_myelin: 0.5627
+69/73 [===========================>..] - ETA: 1s - loss: 0.3327 - acc: 0.6763 - dice_axon: 0.5885 - dice_myelin: 0.5655
+70/73 [===========================>..] - ETA: 1s - loss: 0.3312 - acc: 0.6782 - dice_axon: 0.5911 - dice_myelin: 0.5669
+71/73 [============================>.] - ETA: 0s - loss: 0.3328 - acc: 0.6766 - dice_axon: 0.5887 - dice_myelin: 0.5653
+72/73 [============================>.] - ETA: 0s - loss: 0.3323 - acc: 0.6777 - dice_axon: 0.5893 - dice_myelin: 0.5651
+73/73 [==============================] - 35s 481ms/step - loss: 0.3315 - acc: 0.6788 - dice_axon: 0.5905 - dice_myelin: 0.5668 - val_loss: 0.1783 - val_acc: 0.8439 - val_dice_axon: 0.7986 - val_dice_myelin: 0.7408
+Epoch 3/1000
+
+ 1/73 [..............................] - ETA: 25s - loss: 0.2387 - acc: 0.7913 - dice_axon: 0.7063 - dice_myelin: 0.7414
+ 2/73 [..............................] - ETA: 40s - loss: 0.2462 - acc: 0.7842 - dice_axon: 0.7126 - dice_myelin: 0.7438
+ 3/73 [>.............................] - ETA: 44s - loss: 0.2387 - acc: 0.7856 - dice_axon: 0.7207 - dice_myelin: 0.7235
+ 4/73 [>.............................] - ETA: 40s - loss: 0.2891 - acc: 0.7370 - dice_axon: 0.6597 - dice_myelin: 0.7330
+ 5/73 [=>............................] - ETA: 38s - loss: 0.2765 - acc: 0.7464 - dice_axon: 0.6770 - dice_myelin: 0.7220
+ 6/73 [=>............................] - ETA: 37s - loss: 0.2734 - acc: 0.7453 - dice_axon: 0.6881 - dice_myelin: 0.7106
+ 7/73 [=>............................] - ETA: 36s - loss: 0.2642 - acc: 0.7532 - dice_axon: 0.7000 - dice_myelin: 0.7062
+ 8/73 [==>...........................] - ETA: 33s - loss: 0.2557 - acc: 0.7629 - dice_axon: 0.7087 - dice_myelin: 0.7136
+ 9/73 [==>...........................] - ETA: 32s - loss: 0.2559 - acc: 0.7610 - dice_axon: 0.7140 - dice_myelin: 0.7010
+10/73 [===>..........................] - ETA: 30s - loss: 0.2655 - acc: 0.7512 - dice_axon: 0.6841 - dice_myelin: 0.6777
+11/73 [===>..........................] - ETA: 30s - loss: 0.2627 - acc: 0.7525 - dice_axon: 0.6934 - dice_myelin: 0.6743
+12/73 [===>..........................] - ETA: 29s - loss: 0.2619 - acc: 0.7515 - dice_axon: 0.6970 - dice_myelin: 0.6606
+13/73 [====>.........................] - ETA: 28s - loss: 0.2654 - acc: 0.7463 - dice_axon: 0.6990 - dice_myelin: 0.6560
+14/73 [====>.........................] - ETA: 27s - loss: 0.2717 - acc: 0.7382 - dice_axon: 0.6736 - dice_myelin: 0.6301
+15/73 [=====>........................] - ETA: 27s - loss: 0.2791 - acc: 0.7281 - dice_axon: 0.6722 - dice_myelin: 0.6097
+16/73 [=====>........................] - ETA: 26s - loss: 0.2792 - acc: 0.7293 - dice_axon: 0.6674 - dice_myelin: 0.6195
+17/73 [=====>........................] - ETA: 26s - loss: 0.2756 - acc: 0.7337 - dice_axon: 0.6722 - dice_myelin: 0.6252
+18/73 [======>.......................] - ETA: 25s - loss: 0.2723 - acc: 0.7364 - dice_axon: 0.6781 - dice_myelin: 0.6275
+19/73 [======>.......................] - ETA: 24s - loss: 0.2715 - acc: 0.7361 - dice_axon: 0.6815 - dice_myelin: 0.6205
+20/73 [=======>......................] - ETA: 24s - loss: 0.2702 - acc: 0.7365 - dice_axon: 0.6825 - dice_myelin: 0.6111
+21/73 [=======>......................] - ETA: 23s - loss: 0.2743 - acc: 0.7312 - dice_axon: 0.6682 - dice_myelin: 0.5978
+22/73 [========>.....................] - ETA: 23s - loss: 0.2759 - acc: 0.7285 - dice_axon: 0.6685 - dice_myelin: 0.5945
+23/73 [========>.....................] - ETA: 22s - loss: 0.2770 - acc: 0.7267 - dice_axon: 0.6623 - dice_myelin: 0.5874
+24/73 [========>.....................] - ETA: 22s - loss: 0.2744 - acc: 0.7298 - dice_axon: 0.6667 - dice_myelin: 0.5933
+25/73 [=========>....................] - ETA: 21s - loss: 0.2725 - acc: 0.7314 - dice_axon: 0.6710 - dice_myelin: 0.5976
+26/73 [=========>....................] - ETA: 21s - loss: 0.2726 - acc: 0.7304 - dice_axon: 0.6729 - dice_myelin: 0.6008slurmstepd: error: *** JOB 43753789 ON sh03-12n16 CANCELLED AT 2022-01-24T23:43:00 ***

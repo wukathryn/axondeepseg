@@ -1,0 +1,6 @@
+This script is running on:
+sh03-12n16.int
+
+usage: train_from_config.py [-h] -m PATH_MODEL [-t PATH_TRAININGSET]
+                            [-i PATH_MODEL_INIT]
+train_from_config.py: error: argument -m/--path_model: expected one argument

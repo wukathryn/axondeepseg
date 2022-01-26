@@ -1,0 +1,8 @@
+Training files:
+p5-4_3000x_0005
+p5-4-6000x_2_montage
+
+Validation files:
+p5-4-10000x_2_montage
+
+General pixel size: 0.01
