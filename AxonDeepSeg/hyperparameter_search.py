@@ -6,12 +6,14 @@ import json
 from pathlib import Path
 import subprocess
 import copy
+import argparse
 
-def make_model_directory(learning_rate):
+#Location of the sbatch script. Modify if this script is moved or renamed
+sbatch_script_path = "./sherlock/sherlock_train.sh"
+
+def setup_model_directory(config, change_from_base_config, trainingset):
     # Define path to where the trained model will be saved
-    tissue = "CNS"
-    change_from_default_config = "learning_rate_{}".format(learning_rate)
-    dir_name = Path(tissue + "_" + change_from_default_config)
+    dir_name = Path(trainingset + "_" + change_from_base_config)
     path_model = "../models" / dir_name
 
     print("Model path: " + str(path_model.resolve().absolute()))
@@ -20,7 +22,12 @@ def make_model_directory(learning_rate):
     if not os.path.exists(path_model):
         os.makedirs(path_model)
 
+    # Save config file within directory
+    save_config(path_model, config)
+
     return path_model
+
+
 
 def default_config():
     #populate config with default parameters
@@ -93,22 +100,63 @@ def default_config():
     }
     return config
 
-def hyperparameter_search(base_config):
-    # Perform hypersearch over one parameter
-    learning_rates = [1e-4, 1e-3, 1e-2]
+def hyperparameter_search(base_config, trainingset):
 
+    # vary learning rates
+    learning_rates = [1e-4, 1e-3, 1e-2]
     for learning_rate in learning_rates:
         # Modify the relevant parameter in params
         config = copy.deepcopy(base_config)
         config['learning_rate'] = learning_rate
+        change_from_base_config = "lr_{}".format(learning_rate)
+        train_model(config, change_from_base_config, trainingset)
 
-        # Make a directory containing this config file
-        path_model = make_model_directory(learning_rate)
-        save_config(path_model, config)
+    # Change learning rate decay type
+    config = copy.deepcopy(base_config)
+    config["learning_rate_decay_type"] = "exponential"
+    change_from_base_config = "lrd_exponential"
+    train_model(config, change_from_base_config, trainingset)
 
-        print("./sherlock_train.sh -m " + str(path_model.absolute()))
-        subprocess.call("sbatch ./sherlock_train.sh -m " + str(path_model.absolute()), shell=True)
+    # Change batch_norm_decay
+    config = copy.deepcopy(base_config)
+    config["batch_norm_decay_decay_activate"] = False
+    change_from_base_config = "no_bn_decay"
+    train_model(config, change_from_base_config, trainingset)
 
+    # Change rescaling
+    config = copy.deepcopy(base_config)
+    config["da-1-rescaling-activate"] = True
+    change_from_base_config = "rescaling"
+    train_model(config, change_from_base_config, trainingset)
+
+    # Change dropout
+    config = copy.deepcopy(base_config)
+    config["dropout"] = 1
+    change_from_base_config = "no_dropout"
+    train_model(config, change_from_base_config, trainingset)
+
+def train_model(config, change_from_base_config, trainingset):
+    # Make a directory containing this config file
+    path_model = setup_model_directory(config, change_from_base_config, trainingset)
+    trainingset_path = get_trainingset_path(trainingset)
+    submit_sbatch_job(path_model, trainingset_path)
+
+
+def get_trainingset_path(trainingset):
+    processed_data_dir = Path("../data/processed")
+
+    if trainingset=="pns":
+        trainingset_path = processed_data_dir / 'pns' / 'training_patches'
+    if trainingset=="cns_combined":
+        trainingset_path = processed_data_dir / 'cns' / 'na_nyu_combined'
+
+    return trainingset_path
+
+
+def submit_sbatch_job(path_model, trainingset_path):
+    sbatch_command = "sbatch " + sbatch_script_path + " -m " + str(path_model.absolute()) + " -t " + str(trainingset_path.absolute())
+    print(sbatch_command)
+    subprocess.call(sbatch_command, shell=True)
 
 def save_config(path_model, config):
     # Define file name of network configuration
@@ -120,8 +168,15 @@ def save_config(path_model, config):
         json.dump(config, f, indent=2)
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-t", "--trainingset",
+                    default="pns", help="pns or cns_combined")
+    args = vars(ap.parse_args())
+    trainingset = str(args["trainingset"])
+
     base_config = default_config()
-    hyperparameter_search(base_config)
+    hyperparameter_search(base_config, trainingset)
+
 
 if __name__ == '__main__':
     main()
